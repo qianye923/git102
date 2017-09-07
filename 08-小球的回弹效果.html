@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+<canvas width="600" height="400" id="canvas"></canvas>
+<script>
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    var x = 300;
+    var y = 200;
+
+    //给一个水平速度和垂直速度， 水平速度和垂直速度有一个合速度，就是小球的运行的方向
+    var xspeed = 2;
+    var yspeed = 0.7;
+    
+    function draw() {
+
+        //每次画小球之前， 先把画布布上的小球清掉
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        //每一帧都来改变小球的位置
+        x += xspeed;
+        y += yspeed;
+
+        //做一个边界处理
+        if (x <= 20 || x >= canvas.width-20) {
+            xspeed = -xspeed;
+        }
+
+        if (y <= 20 || y >= canvas.height - 20) {
+            yspeed = -yspeed;
+        }
+
+        context.beginPath();
+        context.arc(x, y, 20, 0, 2*Math.PI);
+        context.fill();
+
+        window.requestAnimationFrame(draw);
+    }
+
+    draw();
+
+</script>
+</body>
+</html>
